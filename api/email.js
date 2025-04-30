@@ -5,11 +5,32 @@ export default async function handler(req, res) {
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
 
-  const { formData, shipToDifferent, orderNotes, cartItems, subtotal, shipping, total } = req.body;
+  try {
+    const {
+      formData,
+      shipToDifferent,
+      orderNotes,
+      cartItems,
+      subtotal,
+      shipping,
+      total
+    } = req.body;
 
-  const fixedEmail = 'hafizamirsaeed906@gmail.com';
+    // Basic validation to prevent crashes
+    if (
+      !formData ||
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.email ||
+      !Array.isArray(cartItems) ||
+      cartItems.length === 0
+    ) {
+      return res.status(400).json({ success: false, message: 'Missing or invalid form data' });
+    }
 
-  const text = `
+    const fixedEmail = 'hafizamirsaeed906@gmail.com';
+
+    const text = `
 NEW ORDER RECEIVED
 
 Customer Information:
@@ -28,7 +49,7 @@ ${orderNotes || 'None'}
 Cart Details:
 --------------------------------
 ${cartItems.map(item => (
-  \`• \${item.title} (x\${item.quantity}) - Rs \${item.price * item.quantity}\`
+  `• ${item.title} (x${item.quantity}) - Rs ${item.price * item.quantity}`
 )).join('\n')}
 
 Price Summary:
@@ -40,13 +61,21 @@ TOTAL: Rs ${total}
 Thank you.
 `;
 
-  const subject = `New Order Received - Little Mumins`;
+    const subject = `New Order Received - Little Mumins`;
 
-  const result = await sendEmail(fixedEmail, subject, text);
+    const result = await sendEmail(fixedEmail, subject, text);
 
-  if (result.success) {
-    res.status(200).json({ message: result.message });
-  } else {
-    res.status(500).json({ message: result.message, error: result.error });
+    if (result.success) {
+      return res.status(200).json({ message: result.message });
+    } else {
+      return res.status(500).json({ message: result.message, error: result.error });
+    }
+  } catch (error) {
+    console.error('API Error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Unexpected server error',
+      error: error.message,
+    });
   }
 }

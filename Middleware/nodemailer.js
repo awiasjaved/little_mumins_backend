@@ -11,14 +11,14 @@ export const sendEmail = async (to, subject, text) => {
     });
 
     const mailOptions = {
-      from: \`"Little Mum'ins" <\${process.env.EMAIL_USER}>\`,
+      from: `"Little Mum'ins" <${process.env.EMAIL_USER}>`,
       to,
       subject,
       text,
     };
 
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent: ' + info.response);
+    console.log('Email sent:', info.response);
 
     return {
       success: true,
