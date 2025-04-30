@@ -6,26 +6,10 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      formData,
-      shipToDifferent,
-      orderNotes,
-      cartItems,
-      subtotal,
-      shipping,
-      total
-    } = req.body;
+    const { formData, shipToDifferent, orderNotes, cartItems, subtotal, shipping, total } = req.body;
 
-    // Basic validation to prevent crashes
-    if (
-      !formData ||
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !Array.isArray(cartItems) ||
-      cartItems.length === 0
-    ) {
-      return res.status(400).json({ success: false, message: 'Missing or invalid form data' });
+    if (!formData || !formData.firstName || !formData.lastName || !formData.email) {
+      return res.status(400).json({ success: false, message: 'Invalid or missing form data' });
     }
 
     const fixedEmail = 'hafizamirsaeed906@gmail.com';
@@ -66,16 +50,12 @@ Thank you.
     const result = await sendEmail(fixedEmail, subject, text);
 
     if (result.success) {
-      return res.status(200).json({ message: result.message });
+      res.status(200).json({ message: result.message });
     } else {
-      return res.status(500).json({ message: result.message, error: result.error });
+      res.status(500).json({ message: result.message, error: result.error });
     }
   } catch (error) {
-    console.error('API Error:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'Unexpected server error',
-      error: error.message,
-    });
+    console.error('Error in email API:', error);
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
   }
 }
