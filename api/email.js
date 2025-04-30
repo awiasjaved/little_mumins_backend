@@ -1,19 +1,24 @@
 import { sendEmail } from '../middleware/nodemailer.js';
 
-const allowedOrigin = 'https://little-mumins.vercel.app'; // no trailing slash
+const allowedOrigins = ['https://little-mumins.vercel.app', 'http://localhost:3000'];
 
 export default async function handler(req, res) {
-  // ✅ CORS headers (set for all methods)
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-  // ✅ Handle preflight request
+  // Handle preflight request
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
+  // Allow only POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
