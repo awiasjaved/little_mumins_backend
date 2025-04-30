@@ -1,6 +1,6 @@
 import { sendEmail } from '../middleware/nodemailer.js';
 
-const allowedOrigin = 'https://little-mumins.vercel.app'; // No trailing slash
+const allowedOrigin = 'http://localhost:3000/'; // No trailing slash
 
 export default async function handler(req, res) {
   // ✅ Handle CORS preflight request
