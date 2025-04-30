@@ -1,6 +1,19 @@
 import { sendEmail } from '../middleware/nodemailer.js';
 
 export default async function handler(req, res) {
+  // ✅ Handle CORS preflight request
+  if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Change '*' to your frontend domain for security
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
+
+  // ✅ Set CORS headers for real POST requests
+  res.setHeader('Access-Control-Allow-Origin', 'https://little-mumins.vercel.app/'); // Replace with your frontend domain if needed
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method Not Allowed' });
   }
