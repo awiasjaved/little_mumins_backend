@@ -1,18 +1,11 @@
 {
-  "name": "email-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "nodemailer": "^6.10.1"
+    "name": "little-mumins-api",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+      "dev": "vercel dev"
+    },
+    "dependencies": {
+      "nodemailer": "^6.9.0"
+    }
   }
-}

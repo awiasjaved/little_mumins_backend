@@ -1,18 +1,17 @@
+import nodemailer from 'nodemailer';
 
-const nodemailer = require('nodemailer');
-
-const sendEmail = async (to, subject, text) => {
+export const sendEmail = async (to, subject, text) => {
   try {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+        user: 'infosophieturner480@gmail.com',
+        pass: 'rpsyiwlyzwmcusub', 
       },
     });
 
     const mailOptions = {
-      from: `"Little Mum'ins" <${process.env.EMAIL_USER}>`, // Custom Name + Email
+      from: 'Little Mum\'ins <infosophieturner480@gmail.com>', 
       to,
       subject,
       text,
@@ -35,5 +34,3 @@ const sendEmail = async (to, subject, text) => {
     };
   }
 };
-
-module.exports = { sendEmail };
