@@ -42,7 +42,7 @@ NEW ORDER RECEIVED
 
 Customer Information:
 --------------------------------
-Name: ${formData.firstName} ${formData.lastName}
+Name:  ${formData.firstName} ${formData.lastName}
 Company: ${formData.company || 'N/A'}
 Address: ${formData.address}${formData.apartment ? ', ' + formData.apartment : ''}, ${formData.city}, ${formData.state}, ${formData.zip}, ${formData.country}
 Phone: ${formData.phone}
