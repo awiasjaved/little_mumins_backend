@@ -1,17 +1,19 @@
 import { sendEmail } from '../middleware/nodemailer.js';
 
+const allowedOrigin = 'https://little-mumins.vercel.app'; // No trailing slash
+
 export default async function handler(req, res) {
   // ✅ Handle CORS preflight request
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Origin', '*'); // Change '*' to your frontend domain for security
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     return res.status(200).end();
   }
 
   // ✅ Set CORS headers for real POST requests
-  res.setHeader('Access-Control-Allow-Origin', 'https://little-mumins.vercel.app/'); // Replace with your frontend domain if needed
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method !== 'POST') {
@@ -19,7 +21,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { formData, shipToDifferent, orderNotes, cartItems, subtotal, shipping, total } = req.body;
+    const {
+      formData,
+      shipToDifferent,
+      orderNotes,
+      cartItems,
+      subtotal,
+      shipping,
+      total
+    } = req.body;
 
     if (!formData || !formData.firstName || !formData.lastName || !formData.email) {
       return res.status(400).json({ success: false, message: 'Invalid or missing form data' });
