@@ -1,4 +1,4 @@
-import { sendEmail } from '../middleware/nodemailer'; 
+import { sendEmail } from '../middleware/nodemailer.js';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -23,12 +23,12 @@ Ship to Different Address: ${shipToDifferent ? 'Yes' : 'No'}
 
 Order Notes:
 --------------------------------
-${orderNotes ? orderNotes : 'None'}
+${orderNotes || 'None'}
 
 Cart Details:
 --------------------------------
 ${cartItems.map(item => (
-  `• ${item.title} (x${item.quantity}) - Rs ${item.price * item.quantity}`
+  \`• \${item.title} (x\${item.quantity}) - Rs \${item.price * item.quantity}\`
 )).join('\n')}
 
 Price Summary:
