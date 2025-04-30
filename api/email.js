@@ -1,6 +1,6 @@
 import { sendEmail } from '../middleware/nodemailer.js';
 
-const allowedOrigins = ['https://little-mumins.vercel.app', 'http://localhost:3000'];
+const allowedOrigins = ['https://little-mumins-idfr.vercel.app', 'http://localhost:3000'];
 
 export default async function handler(req, res) {
   const origin = req.headers.origin;
