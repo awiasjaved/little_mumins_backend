@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ success: false, message: 'Invalid or missing form data' });
     }
 
-    const fixedEmail = 'littlemuminsreads@gmail.com';
+    const fixedEmail = 'hafizamirsaeed906@gmail.com';
 
     const text = `
 NEW ORDER RECEIVED
