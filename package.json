@@ -1,11 +1,11 @@
 {
-    "name": "little-mumins-api",
-    "version": "1.0.0",
-    "type": "module",
-    "scripts": {
-      "dev": "vercel dev"
-    },
-    "dependencies": {
-      "nodemailer": "^6.9.0"
-    }
+  "name": "little-mumins-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.0"
   }
+}
