@@ -31,10 +31,11 @@ export default async function handler(req, res) {
       cartItems,
       subtotal,
       shipping,
-      total
+      total,
+      paymentMethod
     } = req.body;
 
-    if (!formData || !formData.firstName || !formData.lastName || !formData.email) {
+    if (!formData || !formData.firstName || !formData.lastName || !formData.email ||!formData.phone || !formData.address || !formData.city || !formData.state) {
       return res.status(400).json({ success: false, message: 'Invalid or missing form data' });
     }
 
@@ -51,7 +52,7 @@ Address: ${formData.address}${formData.apartment ? ', ' + formData.apartment : '
 Phone: ${formData.phone}
 Email: ${formData.email}
 Ship to Different Address: ${shipToDifferent ? 'Yes' : 'No'}
-
+Payment Method: ${paymentMethod}
 Order Notes:
 --------------------------------
 ${orderNotes || 'None'}
